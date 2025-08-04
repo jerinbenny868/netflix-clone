@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
 import { useContentStore } from "../store/content";
 import { useEffect } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { SMALL_IMG_BASE_URL } from "../utils/constants";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import API from "../api/axiosInstance";
 
 const MovieSlider = ({ category }) => {
   const { contentType } = useContentStore();
@@ -18,7 +18,7 @@ const MovieSlider = ({ category }) => {
 
   useEffect(() => {
     const getContent = async () => {
-      const res = await axios.get(`/api/v1/${contentType}/${category}`);
+      const res = await API.get(`/api/v1/${contentType}/${category}`);
       setContent(res.data.content);
     };
     getContent();

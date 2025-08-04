@@ -11,6 +11,15 @@ import searchRouter from "./routes/Search.js";
 const app = express();
 const PORT = ENV_VARS.PORT;
 
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: "https://netfliz-clone-ui.netlify.app", // your Netlify frontend domain
+    credentials: true, // Allow cookies / headers to be shared
+  })
+);
+
 app.use(express.json());
 app.use(cookieParser());
 

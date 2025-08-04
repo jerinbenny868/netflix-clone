@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import axios from "axios";
 import NavBar from "../components/Navbar";
 import { SMALL_IMG_BASE_URL } from "../utils/constants";
 import { Trash } from "lucide-react";
+import API from "../api/axiosInstance";
 
 function formatDate(dateString) {
   // Create a Date object from the input date string
@@ -40,7 +40,7 @@ const HistoryPage = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await axios.get("/api/v1/search/history");
+        const response = await API.get("/api/v1/search/history");
         console.log("Response from history API:", response.data);
         setHistory(response.data.content);
       } catch (error) {
@@ -54,7 +54,7 @@ const HistoryPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/v1/search/history/${id}`);
+      await API.delete(`/api/v1/search/history/${id}`);
       setHistory((prevHistory) => prevHistory.filter((item) => item.id !== id));
     } catch (error) {
       console.error("Error deleting history item:", error);
